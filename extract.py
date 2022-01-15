@@ -26,14 +26,14 @@ def load_neos(neo_csv_path):
     """
     
     with open(neo_csv_path, 'r') as f:
-        neos = {}
+        neos = []
         neoreader = csv.reader(f)
         h = next(neoreader)
         for neo in neoreader:
-            neos[neo[h.index('pdes')]] = NearEarthObject(designation = neo[h.index('pdes')], 
+            neos.append(NearEarthObject(designation = neo[h.index('pdes')], 
                                                         name = neo[h.index('name')], 
                                                         diameter = neo[h.index('diameter')],
-                                                        hazardous= neo[h.index('pha')]) 
+                                                        hazardous= neo[h.index('pha')]))
     return neos
 
 
@@ -45,5 +45,12 @@ def load_approaches(cad_json_path):
     :return: A collection of `CloseApproach`es.
     """
     with open(cad_json_path, 'r') as f:
+        cads = []
         cadreader = json.load(f)
-    return cadreader
+        h = cadreader['fields']
+        for cad in cadreader['data']:
+            cads.append(CloseApproach(designation = cad[h.index('des')],
+                                        time = cad[h.index('cd')],
+                                        distance = cad[h.index('dist')],
+                                        velocity = cad[h.index('v_rel')]))
+    return cads
