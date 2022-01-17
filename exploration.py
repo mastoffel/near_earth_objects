@@ -25,4 +25,32 @@ importlib.reload(extract)
 importlib.reload(database)
 approaches = extract.load_approaches('data/cad.json')
 neos = extract.load_neos('data/neos.csv')
+neodb = database.NEODatabase(neos, approaches)
 
+neodb.get_neo_by_name('Pimentel')
+approaches_dict = {}
+for approach in approaches:
+            if not approach._designation in approaches_dict.keys():
+                approaches_dict[approach._designation] = [approach]
+            else:
+                approaches_dict[approach._designation].append(approach)
+
+neos_dict = {}
+for neo in neos:
+            if not neo.designation in neos_dict.keys():
+                neos_dict[neo.designation] = [neo]
+            else:
+                neos_dict[neo.designation].append(neo)
+                
+def counter(num):
+    for i in range(5):
+        if i > 2:
+            yield print(i)
+            
+next(counter(2))
+
+def approach_gen(approaches):
+    for approach in approaches[0:10]:
+        yield approach
+            
+iter(approach_gen(approaches))
