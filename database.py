@@ -8,8 +8,6 @@ user-specified criteria.
 Under normal circumstances, the main module creates one NEODatabase from the
 data on NEOs and close approaches extracted by `extract.load_neos` and
 `extract.load_approaches`.
-
-You'll edit this file in Tasks 2 and 3.
 """
     
 class NEODatabase:
@@ -41,9 +39,7 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
-        # TODO: What additional auxiliary data structures will be useful?
-        # approaches with keys being neos
-        # dict to search approaches by neo
+        # Dict to search approaches by neo
         approaches_dict = {}
         for approach in self._approaches:
             if not approach._designation in approaches_dict.keys():
@@ -53,7 +49,7 @@ class NEODatabase:
         
         self._approaches_dict = approaches_dict
         
-        # make dictionary to easily search neos
+        # Dict to easily search for neos
         neos_dict = {}
         for neo in self._neos:
             if not neo.designation in neos_dict.keys():
@@ -62,10 +58,10 @@ class NEODatabase:
                 neos_dict[neo.designation].append(neo)
         self._neos_dict = neos_dict
         
-        # neos w key names as seperate dictionary
+        # Neos with names as seperate dictionary
         self._neos_with_names = [neo for neo in neos if neo.name]
         
-        # TODO: Link together the NEOs and their close approaches.
+        # Combine NEOs and Approaches
         for neo in self._neos:
             neo.approaches = approaches_dict.get(neo.designation)
         
@@ -85,7 +81,6 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # TODO: Fetch an NEO by its primary designation.
         return self._neos_dict.get(designation)
 
     def get_neo_by_name(self, name):
@@ -102,8 +97,7 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # TODO: Fetch an NEO by its name.
-        # Only return one if multiple with same name
+        # Only return one if multiple NEOs with same name
         neos = None
         for neo in self._neos_with_names:
             if neo.name == name:
@@ -124,7 +118,7 @@ class NEODatabase:
         :param filters: A collection of filters capturing user-specified criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        # TODO: Generate `CloseApproach` objects that match all of the filters.
+  
         for approach in self._approaches:
             if all(map(lambda f: filters[f](approach), range(len(filters)))):
                 yield approach
