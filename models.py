@@ -150,3 +150,29 @@ class CloseApproach:
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, "
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
+
+    def serialize_flat(self):
+        serial_ca = {
+            'datetime_utc': datetime_to_str(self.time),
+            'distance_au': float(self.distance),
+            'velocity_km_s': float(self.velocity),
+            'designation': str(self._designation),
+            'name': str(self.neo.name) if self.neo.name is not None else '',
+            'diameter_km': float(self.neo.diameter),
+            'potentially_hazardous': self.neo.hazardous
+        }
+        return serial_ca
+    
+    def serialize_nested(self):
+        nested_serial_ca = {
+            'datetime_utc': datetime_to_str(self.time),
+            'distance_au': float(self.distance),
+            'velocity_km_s': float(self.velocity),
+            'neo': {
+                'designation': str(self.neo.designation),
+                'name': str(self.neo.name) if self.neo.name is not None else '',
+                'diameter_km': float(self.neo.diameter),
+                'potentially_hazardous': self.neo.hazardous
+            }
+        }
+        return nested_serial_ca

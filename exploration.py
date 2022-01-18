@@ -21,8 +21,10 @@ json_reader['fields']
 import extract
 import database
 import importlib
+import models
 importlib.reload(extract)
 importlib.reload(database)
+importlib.reload(models)
 approaches = extract.load_approaches('data/cad.json')
 neos = extract.load_neos('data/neos.csv')
 neodb = database.NEODatabase(neos, approaches)
@@ -54,3 +56,7 @@ def approach_gen(approaches):
         yield approach
             
 iter(approach_gen(approaches))
+
+mydict = {'lol': 10,
+          'hey': 11}
+mydict
