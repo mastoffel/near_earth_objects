@@ -7,7 +7,7 @@ Halley's Comet
 This is a project from [Udacity's](https://www.udacity.com/) 'Intermediate Python' course. 
 
 # Data
-This project is based on NASA's Center for Near-Earth Object Studies (CNEOS) data about NEOs and close approaches, which can be found [here](https://ssd-api.jpl.nasa.gov/doc/cad.html). 
+NASA's Center for Near-Earth Object Studies (CNEOS) provides data about NEOs and close approaches, which can be found [here](https://ssd-api.jpl.nasa.gov/doc/cad.html).
 
 # Usage
 
